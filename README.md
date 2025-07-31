@@ -30,9 +30,11 @@ pip install -r requirements.txt
 
 ### 🔗 Model Weights
 
-The model file (`swin_pneumonia.pth`) is large, so it is hosted on Google Drive.  
-It will be automatically downloaded when you run the app for the first time.
+⚠️ The Swin Transformer model file is not included in this repository due to size limitations.
 
+The file will be **automatically downloaded** from Google Drive when you run `app.py`.
+
+If needed, you can manually download it from:
 [Download from Google Drive (if needed)](https://drive.google.com/file/d/1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG/view?usp=drive_link)
 
 ---
