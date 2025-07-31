@@ -1,4 +1,8 @@
+streamlit
 torch
 torchvision
-streamlit
-Pillow
+pillow
+timm
+pandas
+scikit-learn
+joblib
