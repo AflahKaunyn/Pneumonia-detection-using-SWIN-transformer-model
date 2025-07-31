@@ -8,8 +8,6 @@ DRIVE_URL = "https://drive.google.com/uc?id=1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG"  
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Google Drive...")
     gdown.download(DRIVE_URL, MODEL_PATH, quiet=False)
-
-# Import libraries
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -20,12 +18,12 @@ import pandas as pd
 import joblib
 import numpy as np
 
-# Streamlit page setup
+# Streamlit page config
 st.set_page_config(page_title="Pneumonia Detection App", layout="centered")
 st.title("🩺 Pneumonia Disease Prediction")
 st.markdown("Upload a chest X-ray **image** or a **CSV file** of features to classify Pneumonia types.")
 
-# Define Swin Transformer model class
+# Define the Swin Transformer model
 class SwinTransformerPneumonia(torch.nn.Module):
     def __init__(self, num_classes=3):
         super(SwinTransformerPneumonia, self).__init__()
@@ -34,22 +32,25 @@ class SwinTransformerPneumonia(torch.nn.Module):
     def forward(self, x):
         return self.model(x)
 
-# Load both models (cached to prevent reloading on every run)
+# Load both models with Streamlit cache
 @st.cache_resource
 def load_models():
+    # Load image model
     image_model = SwinTransformerPneumonia()
-    image_model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device("cpu")))
+    image_model.load_state_dict(torch.load("swin_pneumonia.pth", map_location=torch.device("cpu")))
     image_model.eval()
 
+    # Load CSV model
     csv_model = joblib.load("xgb_pneumonia_model.pkl")
     return image_model, csv_model
 
+# Load models once
 image_model, csv_model = load_models()
 
-# Define class labels
+# Class labels
 LABELS = ["Normal", "Bacterial Pneumonia", "Viral Pneumonia"]
 
-# Image preprocessing transform
+# Define image transform
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -57,10 +58,10 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# Tabs for Image and CSV input
+# Tabs for Image or CSV input
 tab1, tab2 = st.tabs(["📷 Image-based Prediction", "📈 CSV-based Prediction"])
 
-# Image Prediction Tab
+# === Image Tab ===
 with tab1:
     image_file = st.file_uploader("Upload Chest X-ray Image (JPG/PNG)", type=["jpg", "jpeg", "png"])
     
@@ -84,7 +85,7 @@ with tab1:
         except Exception as e:
             st.error(f"Image Processing Error: {e}")
 
-# CSV Prediction Tab
+# === CSV Tab ===
 with tab2:
     csv_file = st.file_uploader("Upload CSV File (768 features)", type=["csv"])
 
