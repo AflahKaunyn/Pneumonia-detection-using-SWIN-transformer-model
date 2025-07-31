@@ -13,6 +13,7 @@ Built using **Streamlit**, supports automated model download, and runs fully in 
 It is designed to assist in automated diagnosis of pneumonia using medical imaging.
 
 use link for a demo:-
+
 pneumonia-detection-using-swin-transformer-model-mf5gyxoxjrlck.streamlit.app
 
 ---
