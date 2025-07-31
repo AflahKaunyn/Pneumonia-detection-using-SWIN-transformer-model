@@ -10,9 +10,10 @@ This project uses a Swin Transformer-based deep learning model to classify chest
 - 📊 Clinical CSV data via XGBoost classifier
 
 Built using **Streamlit**, supports automated model download, and runs fully in the browser.
-
-
 It is designed to assist in automated diagnosis of pneumonia using medical imaging.
+
+use link for a demo:-
+pneumonia-detection-using-swin-transformer-model-mf5gyxoxjrlck.streamlit.app
 
 ---
 
@@ -31,8 +32,6 @@ Clone this repository and install the required dependencies:
 ```bash
 git clone https://github.com/AflahKaunyn/Pneumonia-detection-using-SWIN-transformer-model.git
 cd Pneumonia-detection-using-SWIN-transformer-model
-pip install -r requirements.txt
-
 
 ## Run locally
 pip install -r requirements.txt
