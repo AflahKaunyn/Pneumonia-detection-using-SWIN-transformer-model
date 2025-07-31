@@ -1,9 +1,16 @@
-# 🧠 Pneumonia Detection Using Swin Transformer
+# 🩺  Pneumonia Detection Using Swin Transformer
+
 
 This project uses a Swin Transformer-based deep learning model to classify chest X-ray images into three categories:
 - Normal
 - Bacterial Pneumonia
 - Viral Pneumonia
+ 
+- 📷 Chest X-ray images via Swin Transformer
+- 📊 Clinical CSV data via XGBoost classifier
+
+Built using **Streamlit**, supports automated model download, and runs fully in the browser.
+
 
 It is designed to assist in automated diagnosis of pneumonia using medical imaging.
 
