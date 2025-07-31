@@ -33,6 +33,12 @@ git clone https://github.com/AflahKaunyn/Pneumonia-detection-using-SWIN-transfor
 cd Pneumonia-detection-using-SWIN-transformer-model
 pip install -r requirements.txt
 
+
+## Run locally
+pip install -r requirements.txt
+streamlit run app.py
+
+
 ---
 
 ### 🔗 Model Weights
