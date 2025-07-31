@@ -1,32 +1,44 @@
-# Pneumonia-detection-using-SWIN-transformer-model
+# 🧠 Pneumonia Detection Using Swin Transformer
 
-# 🩺 Pneumonia Detection Using Swin Transformer
+This project uses a Swin Transformer-based deep learning model to classify chest X-ray images into three categories:
+- Normal
+- Bacterial Pneumonia
+- Viral Pneumonia
 
-This project implements a web-based application that detects pneumonia in chest X-ray images using a fine-tuned **Swin Transformer** model. The model classifies images into three categories:
-
-- ✅ NORMAL  
-- 🦠 BACTERIAL PNEUMONIA  
-- 🦠 VIRAL PNEUMONIA  
-
-It uses **Streamlit** for a simple, interactive user interface where users can upload X-ray images and receive real-time predictions.
+It is designed to assist in automated diagnosis of pneumonia using medical imaging.
 
 ---
 
-## 🧠 Model Overview
+## ⚙️ How It Works
 
-- **Architecture:** Swin Transformer (`swin_t`) from `torchvision.models`
-- **Training:** Fine-tuned on a labeled chest X-ray dataset
-- **Output:** 3-class classification (Normal, Bacterial Pneumonia, Viral Pneumonia)
-
----
-
-## 🚀 Live Demo
-
-> ⚙️ *[Live app will be hosted here after deployment]*  
-> 👉 Replace with your Streamlit Cloud URL like:  
-> `https://aflahkaunyn-pneumonia-swin.streamlit.app`
+1. A chest X-ray image is preprocessed: resized and normalized.
+2. The processed image is passed to a trained Swin Transformer model.
+3. The model predicts the class of pneumonia (or normal).
 
 ---
 
-## 📁 Project Structure
+## 🔧 Installation
 
+Clone this repository and install the required dependencies:
+
+```bash
+git clone https://github.com/AflahKaunyn/Pneumonia-detection-using-SWIN-transformer-model.git
+cd Pneumonia-detection-using-SWIN-transformer-model
+pip install -r requirements.txt
+
+---
+
+# Model Training
+The model is based on torchvision.models.swin_t.
+
+Final classification layer is modified for 3 classes.
+
+Trained using a labeled chest X-ray dataset divided into train/, val/, and test/ directories.
+
+---
+
+ 📜 License
+
+This project is intended for **educational and research purposes only**.  
+Feel free to use or modify the code for non-commercial use with proper credit.  
+No warranties provided.
