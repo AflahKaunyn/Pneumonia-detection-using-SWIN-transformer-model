@@ -1,3 +1,14 @@
+import gdown
+import os
+
+MODEL_PATH = "swin_pneumonia.pth"
+DRIVE_URL = "https://drive.google.com/file/d/1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG/view?usp=drive_link"
+
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model from Google Drive...")
+    gdown.download(DRIVE_URL, MODEL_PATH, quiet=False)
+
+
 import streamlit as st
 import torch
 import torch.nn.functional as F
