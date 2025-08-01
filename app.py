@@ -1,14 +1,3 @@
-import gdown
-import os
-
-# Download model from Google Drive if not present
-MODEL_PATH = "swin_pneumonia.pth"
-DRIVE_URL = "https://drive.google.com/uc?id=1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG"  # Direct download link
-
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Google Drive...")
-    gdown.download(DRIVE_URL, MODEL_PATH, quiet=False)
-    
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -51,8 +40,11 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# Image Upload
+# Upload image
 image_file = st.file_uploader("Upload Chest X-ray Image (JPG/PNG)", type=["jpg", "jpeg", "png"])
+
+# Threshold for accepting predictions as valid chest X-rays
+CONFIDENCE_THRESHOLD = 0.75
 
 if image_file is not None:
     try:
@@ -65,11 +57,14 @@ if image_file is not None:
             outputs = model(image_tensor)
             probabilities = F.softmax(outputs, dim=1)
             confidence_score, predicted_class = torch.max(probabilities, 1)
-            prediction = LABELS[predicted_class.item()]
-            confidence = f"{confidence_score.item() * 100:.2f}%"
 
-        st.success(f"Prediction: **{prediction}**")
-        st.info(f"Confidence: {confidence}")
+            if confidence_score.item() < CONFIDENCE_THRESHOLD:
+                st.warning("Please upload a chest X-ray image.")
+            else:
+                prediction = LABELS[predicted_class.item()]
+                confidence = f"{confidence_score.item() * 100:.2f}%"
+                st.success(f"Prediction: **{prediction}**")
+                st.info(f"Confidence: {confidence}")
 
     except Exception as e:
         st.error(f"Error processing image: {e}")
