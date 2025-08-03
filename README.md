@@ -61,6 +61,6 @@ Trained using a labeled chest X-ray dataset divided into train/, val/, and test/
 
  📜 License
 
-This project is intended for **educational and research purposes only**.  
+This project is intended for ****educational and research purposes only****.  
 Feel free to use or modify the code for non-commercial use with proper credit.  
 No warranties provided.
