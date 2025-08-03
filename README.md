@@ -12,9 +12,7 @@ This project uses a Swin Transformer-based deep learning model to classify chest
 Built using **Streamlit**, supports automated model download, and runs fully in the browser.
 It is designed to assist in automated diagnosis of pneumonia using medical imaging.
 
-use link for a demo:-
 
-pneumonia-detection-using-swin-transformer-model-mf5gyxoxjrlck.streamlit.app
 
 ---
 
