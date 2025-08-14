@@ -10,6 +10,18 @@ import os
 
 app = Flask(__name__)
 
+MODEL_PATH = "swin_pneumonia.pth"
+MODEL_URL = "https://drive.google.com/uc?id=1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG&export=download"
+
+if not os.path.exists(MODEL_PATH):
+    print("Downloading Swin Transformer model...")
+    r = requests.get(MODEL_URL, stream=True)
+    with open(MODEL_PATH, "wb") as f:
+        for chunk in r.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
+    print("Model downloaded successfully.")
+
 class SwinTransformerPneumonia(torch.nn.Module):
     def __init__(self, num_classes=3):
         super(SwinTransformerPneumonia, self).__init__()
@@ -96,4 +108,5 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
