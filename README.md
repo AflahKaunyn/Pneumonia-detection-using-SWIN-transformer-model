@@ -8,11 +8,9 @@ This project uses a Swin Transformer-based deep learning model to classify chest
  
 - 📷 Chest X-ray images via Swin Transformer
 - 📊 Clinical CSV data via XGBoost classifier
-
-Built using **Streamlit**, supports automated model download, and runs fully in the browser.
-It is designed to assist in automated diagnosis of pneumonia using medical imaging.
-
-
+  
+# 🩺  Download model using the link provide 
+"https://drive.google.com/uc?id=1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG&export=download"
 
 ---
 
