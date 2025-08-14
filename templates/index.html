@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 30px;
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-left: 5px solid #1abc9c;
+        }
+        .error {
+            margin-top: 30px;
+            background-color: #fdecea;
+            padding: 15px;
+            border-left: 5px solid #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pneumonia Prediction</h1>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <h3>Upload an Image:</h3>
+        <input type="file" name="file" accept=".jpg,.jpeg,.png">
+    
+       <!-- <h3>Upload a CSV File:</h3>
+        <input type="file" name="csvfile" accept=".csv"> -->
+    
+        <br><br>
+        <input type="submit" value="Predict">
+    </form>
+    
+
+    {% if prediction %}
+        <div class="result">
+            <h2>Image Prediction: {{ prediction }}</h2>
+           Confidence Level: {{ confidence }}</p>
+        </div>
+    {% endif %}
+
+    <!--{% if csv_prediction %}
+        {% if "Error" in csv_prediction %}
+            <div class="error">
+                <h2>{{ csv_prediction }}</h2>
+            </div>
+       {% else %}
+            <div class="result">
+                <h2>CSV Prediction: {{ csv_prediction }}</h2>
+                <p>Confidence Level: {{ csv_confidence }}</p>
+            </div>
+        {% endif %}
+    {% endif %} -->
+</body>
+</html>
