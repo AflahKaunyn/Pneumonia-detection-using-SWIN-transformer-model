@@ -1,4 +1,3 @@
-streamlit
 torch
 torchvision
 pillow
@@ -7,3 +6,4 @@ pandas
 scikit-learn
 joblib
 gdown
+Flask
