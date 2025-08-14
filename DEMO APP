@@ -1,3 +1,9 @@
 Use link for a demo:-
 
 pneumonia-detection-using-swin-transformer-model-mf5gyxoxjrlck.streamlit.app
+
+
+due to server issues the app is currently down you can save the app.py file and run using your windows powershell
+~ copy the file address where the app.py file is stored 
+~ use command :
+        streamlit run app.py
