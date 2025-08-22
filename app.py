@@ -9,22 +9,46 @@ import requests
 
 app = Flask(__name__)
 
-# Download the Swin model file from Google Drive if not present
-SWIN_MODEL_URL = "https://drive.google.com/uc?id=1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG&export=download"
+# Google Drive download helpers for large files
+def download_file_from_google_drive(file_id, destination):
+    URL = "https://docs.google.com/uc?export=download"
+
+    session = requests.Session()
+
+    response = session.get(URL, params={'id': file_id}, stream=True)
+    token = get_confirm_token(response)
+
+    if token:
+        params = {'id': file_id, 'confirm': token}
+        response = session.get(URL, params=params, stream=True)
+
+    save_response_content(response, destination)
+
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith('download_warning'):
+            return value
+    return None
+
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
+
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk:
+                f.write(chunk)
+
+# Swin model file and your Google Drive file ID extracted from your link
 SWIN_MODEL_FILE = "swin_pneumonia.pth"
+SWIN_MODEL_ID = "1uhR3BW7oKINHJuyDIVza-2Pha8Ug4_tG"
 
-def download_file(url, filename):
-    if not os.path.exists(filename):
-        print(f"Downloading {filename}...")
-        response = requests.get(url)
-        response.raise_for_status()
-        with open(filename, "wb") as f:
-            f.write(response.content)
-        print(f"{filename} downloaded.")
+# Download model if not already present
+if not os.path.exists(SWIN_MODEL_FILE):
+    print(f"Downloading {SWIN_MODEL_FILE} from Google Drive...")
+    download_file_from_google_drive(SWIN_MODEL_ID, SWIN_MODEL_FILE)
+    print(f"Downloaded {SWIN_MODEL_FILE}.")
 
-download_file(SWIN_MODEL_URL, SWIN_MODEL_FILE)
-
-# Define the Swin Transformer Model class
+# Define Swin Transformer pneumonia model class
 class SwinTransformerPneumonia(torch.nn.Module):
     def __init__(self, num_classes=3):
         super(SwinTransformerPneumonia, self).__init__()
@@ -32,12 +56,12 @@ class SwinTransformerPneumonia(torch.nn.Module):
     def forward(self, x):
         return self.model(x)
 
-# Initialize the model
+# Load the model weights
 image_model = SwinTransformerPneumonia()
-image_model.load_state_dict(torch.load(SWIN_MODEL_FILE, map_location=torch.device('cpu'), weights_only=False))
+image_model.load_state_dict(torch.load(SWIN_MODEL_FILE, map_location=torch.device('cpu')))
 image_model.eval()
 
-# Image preprocessing
+# Image preprocessing transformations
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -78,5 +102,3 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
-
