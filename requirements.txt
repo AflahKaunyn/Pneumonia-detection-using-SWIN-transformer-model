@@ -1,11 +1,10 @@
-Flask
+flask
 torch
 torchvision
 Pillow
 timm
-pandas
-joblib
 requests
 gunicorn
+pandas
+joblib
 scikit-learn
-gdown
