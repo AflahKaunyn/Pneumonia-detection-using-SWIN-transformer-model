@@ -58,7 +58,7 @@ class SwinTransformerPneumonia(torch.nn.Module):
 
 # Load the model weights
 image_model = SwinTransformerPneumonia()
-image_model.load_state_dict(torch.load(SWIN_MODEL_FILE, map_location=torch.device('cpu')))
+image_model.load_state_dict(torch.load(SWIN_MODEL_FILE, map_location=torch.device('cpu'), weights_only=False))
 image_model.eval()
 
 # Image preprocessing transformations
@@ -102,3 +102,5 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
+
